@@ -1,100 +1,153 @@
-# Stan Coding Challenge
+<p align="center">
+  <img src="https://cloud.githubusercontent.com/assets/3129129/22811426/bb69dc06-ef0c-11e6-8092-a0bea9060b35.png"/>
+</p>
 
-> Welcome to the Stan Coding Challenge!
+---
 
-## Overview
+[![Build status: Linux](https://img.shields.io/travis/coryhouse/react-slingshot.svg?style=flat-square)](https://travis-ci.org/coryhouse/react-slingshot)
+[![Build status: Windows](https://img.shields.io/appveyor/ci/coryhouse/react-slingshot/master.svg?style=flat-square)](https://ci.appveyor.com/project/coryhouse/react-slingshot/branch/master)
+[![Dependency Status](https://david-dm.org/coryhouse/react-slingshot.svg?style=flat-square)](https://david-dm.org/coryhouse/react-slingshot)
+[![Coverage Status](https://img.shields.io/coveralls/coryhouse/react-slingshot/master.svg?style=flat-square)](https://coveralls.io/github/coryhouse/react-slingshot?branch=master)
 
-To complete this challenge, you will need to write a simple [React](https://facebook.github.io/react/) based web app, and provide us the source files to be built.
+A comprehensive starter kit for rapid application development using React.
 
-The purpose of this challenge is to assess your **skills and approach to composing a simple web app** given a set of screens and an API feed. We will also assess the **generated HTML, CSS, and JS** output.
+Why Slingshot?
 
-This challenge is expected to take about 2-4 hours.
+1. **One command to get started** - Type `npm start` to start development in your default browser.
+2. **Rapid feedback** - Each time you hit save, changes hot reload and linting and automated tests run.
+3. **One command line to check** - All feedback is displayed on a single command line.
+4. **No more JavaScript fatigue** - Slingshot uses [the most popular and powerful libraries](#technologies) for working with React.
+5. **Working example app** - The included example app shows how this all works together.
+6. **Automated production build** - Type `npm run build` to do all this:
 
-## The Challenge
+[![React Slingshot Production Build](https://img.youtube.com/vi/qlfDLsX-J0U/0.jpg)](https://www.youtube.com/watch?v=qlfDLsX-J0U)
 
-It's pretty simple. Using the provided screens as a reference, you'll need to build a set of React components to render the app. You'll also need to request a JSON feed, filter that data, and use the relevant fields.
+# Get Started
 
-Although this is a basic exercise, we'll be looking for **simple, well-designed, performant, and tested code** in the submission.
+1. **Initial Machine Setup**
 
-Please include a `README` with setup instructions, and any tests or other documentation you created as part of your solution.
+    First time running the starter kit? Then complete the [Initial Machine Setup](#initial-machine-setup).
 
-Also, add the following info to your `README`:
+2. **Click "Use this template"**
 
-- How did you decide on the technical and architectural choices used as part of your solution?
-- Are there any improvements you could make to your submission?
-- What would you do differently if you were allocated more time?
+    Click the green "Use this template" button at the top of this page and enter a name and description for your repo.
 
-## Details
+3. **Run the setup script**
 
-You will need to build the following 3 pages with React:
+    `npm run setup`
 
-- A "Home" page
-- A "Series" page
-- A "Movies" page
+4. **Run the example app**
 
-The deployable solution should be built in a folder named **`dist`** with an entry point file of **`index.html`**.
+    `npm start -s`
 
-Please create components for each part of the page (eg. header, content, footer, etc).
-Assets are provided in the `assets` folder.
+    This will run the automated build process, start up a webserver, and open the application in your default browser. When doing development with this kit, this command will continue watching all your files. Every time you hit save the code is rebuilt, linting runs, and tests run automatically. Note: The -s flag is optional. It enables silent mode which suppresses unnecessary messages during the build.
 
-The pages should also be usable on mobile and tablet devices.
+5. **Review the example app.**
 
-You can assume that you do not have to support legacy browsers without features such as `fetch` or `flexbox`.
+    This starter kit includes a working example app that calculates fuel savings. Note how all source code is placed under /src. Tests are placed alongside the file under test. The final built app is placed under /dist. These are the files you run in production.
 
-### "Home" Page
+6. **Delete the example app files.**
 
-Refer to the [screens/1-home.jpg](./screens/1-home.jpg) screen.
+    Once you're comfortable with how the example app works, you can [delete those files and begin creating your own app](./docs/FAQ.md#i-just-want-an-empty-starter-kit).
 
-This will be your `index.html` screen.
+7. **Having issues?** See [Having Issues?](#having-issues-try-these-things-first).
 
-You will need to display 2 tiles, which link to the "Series" page and the "Movies" page.
+## Initial Machine Setup
 
-### "Series" and "Movies" Pages
+1. **Install [Node 8.0.0 or greater](https://nodejs.org)**
 
-Refer to the [screens/2-series.jpg](./screens/2-series.jpg) and [screens/3-movies.jpg](./screens/3-movies.jpg) screens.
+    Need to run multiple versions of Node? Use [nvm](https://github.com/creationix/nvm).
 
-For each page you will need to fetch this JSON feed [feed/sample.json](https://raw.githubusercontent.com/StreamCo/react-coding-challenge/master/feed/sample.json), then:
+2. **Install [Git](https://git-scm.com/downloads)**.
 
-- Display the first 21 `entries`
-- Where the entry has a `releaseYear` attribute value >= `2010`
-- Sorted by the `title` attribute value in ascending alphanumeric order
+3. **[Disable safe write in your editor](https://webpack.js.org/guides/development/#adjusting-your-text-editor)** to assure hot reloading works properly.
 
-For the "Series" page filter on:
+4. Complete the steps below for your operating system:
 
-- Where the entry has a `programType` attribute value of `series`
+    ### macOS
 
-For the "Movies" page filter on:
+    * Install [watchman](https://facebook.github.io/watchman/) via `brew install watchman` or fswatch via `brew install fswatch` to avoid [this issue](https://github.com/facebook/create-react-app/issues/871) which occurs if your macOS has no appropriate file watching service installed.
 
-- Where the entry has a `programType` attribute value of `movie`
+    ### Linux
 
-The attributes you should use to display the entries are:
+    * Run this to [increase the limit](http://stackoverflow.com/questions/16748737/grunt-watch-error-waiting-fatal-error-watch-enospc) on the number of files Linux will watch. [Here's why](https://github.com/coryhouse/react-slingshot/issues/6).
 
-- `title`
-- `images` → `Poster Art` → `url`
+        `echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p`.
 
-You will also need to handle the loading and error states of fetching the JSON feed:
+    ### Windows
+    
+    * **Install [Python 2.7](https://www.python.org/downloads/)**. Some node modules may rely on node-gyp, which requires Python on Windows.
+    * **Install C++ Compiler**. Browser-sync requires a C++ compiler on Windows.
+    
+      [Visual Studio Express](https://www.visualstudio.com/en-US/products/visual-studio-express-vs) comes bundled with a free C++ compiler.
+      
+      If you already have Visual Studio installed:
+      Open Visual Studio and go to File -> New -> Project -> Visual C++ -> Install Visual C++ Tools for Windows Desktop.
+      The C++ compiler is used to compile browser-sync (and perhaps other Node modules).
 
-- "Loading" state [screens/1.1-loading.jpg](./screens/1.1-loading.jpg)
-- "Error" state [screens/1.2-error.jpg](./screens/1.2-error.jpg)
+---
 
-## FAQ
+## Having Issues? Try these things first
 
-### What language, framework, build tool... should I use?
+1. Make sure you ran all steps in [Get started](#get-started) including the [initial machine setup](#initial-machine-setup).
+2. Run `npm install` - If you forget to do this, you'll see this: `babel-node: command not found`.
+3. Install the latest version of Node.
+4. Make sure files with names that begin with a dot (.editorconfig, .gitignore, .npmrc) are copied to the project directory root. This is easy to overlook if you copy this repository manually.
+5. Don't run the project from a symbolic link. It may cause issues with file watches.
+6. Delete any .eslintrc that you're storing in your user directory. Also, disable any ESLint plugin / custom rules that you've enabled within your editor. These will conflict with the ESLint rules defined in this project.
+7. Make sure you don't have NODE_ENV set to production on your machine. If you do then the [development dependencies won't be installed](https://github.com/coryhouse/react-slingshot/issues/400#issuecomment-290497767). Here's [how to check](http://stackoverflow.com/a/27939821/26180).
+8. Install watchman with `brew install watchman` if you are having the following error after an initial `npm start -s`:
 
-You may use whatever you like as long as the solution is built using [React](https://facebook.github.io/react/) or an equivalent library.
+    ```bash
+    2017-09-05 00:44 node[68587] (FSEvents.framework) FSEventStreamStart: register_with_server: ERROR: f2d_register_rpc() => (null) (-22)
+    2017-09-05 00:44 node[68587] (FSEvents.framework) FSEventStreamStart: register_with_server: ERROR: f2d_register_rpc() => (null) (-22)
+    events.js:160
+          throw er; // Unhandled 'error' event
+          ^
 
-We prefer it if you did not use any third party CSS frameworks.
+    Error: Error watching file for changes: EMFILE
+        at exports._errnoException (util.js:1022:11)
+        at FSEvent.FSWatcher._handle.onchange (fs.js:1406:11)
+    ```
 
-We also prefer the use of minimal dependencies.
+9. Tip: Things to check if you get an `npm run lint` error or build error:
 
-## Useful Links
+    * If ESW found an error or warning in your project (e.g. console statement or a missing semi-colon), the lint thread will exit with `Exit status 1`. To fix:
 
-- [Bitbucket](https://bitbucket.org/) - Source code hosting, with free private repositories for small teams.
-- [Google Fonts - Raleway](https://fonts.google.com/?selection.family=Raleway)
-- [React](https://facebook.github.io/react/)
+      1. Change the `npm run lint` script to `"esw webpack.config.* src tools; exit 0"`
+      1. Change the `npm run lint:watch` script to `"esw webpack.config.* src tools --watch; exit 0"`
 
-## Other Notes
+      > Note: Adding `exit 0` will allow the npm scripts to ignore the status 1 and allow ESW to print all warnings and errors.
+    * Ensure the `eslint`/`esw` globally installed version matches the version used in the project. This will ensure the `esw` keyword is resolved.
 
-Please send through any other code or projects that you're proud of and would like to share with us.
+10. Rebuild node-sass with `npm rebuild node-sass` if you are having and error like `Node Sass does not yet support your current environment on macOS XXX` after an initial `npm start -s`.
 
-Any feedback on the coding challenge once you're done is also appreciated!
+---
+
+## Technologies
+
+Slingshot offers a rich development experience using the following technologies:
+
+| **Tech** | **Description** |**Learn More**|
+|----------|-------|---|
+|  [React](https://facebook.github.io/react/)  |   Fast, composable client-side components.    | [Pluralsight Course](https://www.pluralsight.com/courses/react-flux-building-applications)  |
+|  [Redux](http://redux.js.org) |  Enforces unidirectional data flows and immutable, hot reloadable store. Supports time-travel debugging. Lean alternative to [Facebook's Flux](https://facebook.github.io/flux/docs/overview.html).| [Getting Started with Redux](https://egghead.io/courses/getting-started-with-redux), [Building React Applications with Idiomatic Redux](https://egghead.io/courses/building-react-applications-with-idiomatic-redux), [Pluralsight Course](http://www.pluralsight.com/courses/react-redux-react-router-es6)|
+|  [React Router](https://github.com/reactjs/react-router) | A complete routing library for React | [Pluralsight Course](https://www.pluralsight.com/courses/react-flux-building-applications) |
+|  [Babel](http://babeljs.io) |  Compiles ES6 to ES5. Enjoy the new version of JavaScript today.     | [ES6 REPL](https://babeljs.io/repl/), [ES6 vs ES5](http://es6-features.org), [ES6 Katas](http://es6katas.org), [Pluralsight course](https://www.pluralsight.com/courses/javascript-fundamentals-es6)    |
+| [Webpack](https://webpack.js.org) | Bundles npm packages and our JS into a single file. Includes hot reloading via [react-transform-hmr](https://www.npmjs.com/package/react-transform-hmr). | [Quick Webpack How-to](https://github.com/petehunt/webpack-howto) [Pluralsight Course](https://www.pluralsight.com/courses/webpack-fundamentals)|
+| [Browsersync](https://www.browsersync.io/) | Lightweight development HTTP server that supports synchronized testing and debugging on multiple devices. | [Intro vid](https://www.youtube.com/watch?time_continue=1&v=heNWfzc7ufQ)|
+| [Jest](https://facebook.github.io/jest/) | Automated tests with built-in expect assertions and [Enzyme](https://github.com/airbnb/enzyme) for DOM testing without a browser using Node. | [Pluralsight Course](https://www.pluralsight.com/courses/testing-javascript) |
+| [TrackJS](https://trackjs.com/) | JavaScript error tracking. | [Free trial](https://my.trackjs.com/signup)|  
+| [ESLint](http://eslint.org/)| Lint JS. Reports syntax and style issues. Using [eslint-plugin-react](https://github.com/yannickcr/eslint-plugin-react) for additional React specific linting rules. | |
+| [SASS](http://sass-lang.com/) | Compiled CSS styles with variables, functions, and more. | [Pluralsight Course](https://www.pluralsight.com/courses/better-css)|
+| [PostCSS](https://github.com/postcss/postcss) | Transform styles with JS plugins. Used to autoprefix CSS |
+| [Editor Config](http://editorconfig.org) | Enforce consistent editor settings (spaces vs tabs, etc). | [IDE Plugins](http://editorconfig.org/#download) |
+| [npm Scripts](https://docs.npmjs.com/misc/scripts)| Glues all this together in a handy automated build. | [Pluralsight course](https://www.pluralsight.com/courses/npm-build-tool-introduction), [Why not Gulp?](https://medium.com/@housecor/why-i-left-gulp-and-grunt-for-npm-scripts-3d6853dd22b8#.vtaziro8n)  |
+
+The starter kit includes a working example app that puts all of the above to use.
+
+---
+
+## Questions?
+
+Check out the [FAQ](./docs/FAQ.md)
