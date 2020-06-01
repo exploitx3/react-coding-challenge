@@ -19,11 +19,19 @@ const Layout = () => {
         <ErrorBoundary>
 
           <Switch>
-            <Route exact path="/" component={() => <Home/>}/>
-            <Route exact path="/movies" component={() => <Movies/>}/>
-            <Route exact path="/series" component={() => <Series/>}/>
+            <Route exact path="/">
+              <Home/>
+            </Route>
+            <Route exact path="/movies">
+              <Movies/>
+            </Route>
+            <Route exact path="/series">
+              <Series/>
+            </Route>
 
-            <Route component={() => <Home/>}/>
+            <Route>
+              <Home/>
+            </Route>
           </Switch>
 
         </ErrorBoundary>
